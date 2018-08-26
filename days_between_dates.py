@@ -1,5 +1,8 @@
+from datetime import datetime
+
 import tkinter as tk
 from tkinter import ttk, Label, Entry
+
 from tkcalendar import DateEntry
 
 # Tkinter window settings.
@@ -43,16 +46,19 @@ def clear():
     output_entry.delete(0, "end")
     output_entry.configure(state="readonly")
 
+# Get current datetime object.
+now = datetime.now()
+
 # Calendar #1 GUI elements.
 ttk.Label(root, text="Choose Date #1").pack(pady=(10, 0))
 
-cal1 = DateEntry(root, selectmode="day", locale="en_US", year=2018, month=1, day=1)
+cal1 = DateEntry(root, selectmode="day", locale="en_US", year=now.year, month=now.month, day=now.day)
 cal1.pack()
 
 # Calendar #2 GUI elements.
 ttk.Label(root, text="Choose Date #2").pack(pady=(10, 0))
 
-cal2 = DateEntry(root, selectmode="day", locale="en_US", year=2018, month=1, day=1)
+cal2 = DateEntry(root, selectmode="day", locale="en_US", year=now.year, month=now.month, day=now.day)
 cal2.pack()
 
 # Output GUI elements.
