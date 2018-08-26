@@ -26,6 +26,8 @@ def date_math():
     if check_var.get() == 1:
         final_difference += 1
 
+    output_entry.configure(state="normal")
+
     # Clear the output field and insert the difference in days.
     # Check for final_difference == 1 for grammar purposes.
     output_entry.delete(0, "end")
@@ -33,6 +35,13 @@ def date_math():
         output_entry.insert(0, str(final_difference) + " Day")
     else:
         output_entry.insert(0, str(final_difference) + " Days")
+
+    output_entry.configure(state="readonly")
+
+def clear():
+    output_entry.configure(state="normal")
+    output_entry.delete(0, "end")
+    output_entry.configure(state="readonly")
 
 # Calendar #1 GUI elements.
 ttk.Label(root, text="Choose Date #1").pack(pady=(10, 0))
@@ -49,19 +58,18 @@ cal2.pack()
 # Output GUI elements.
 ttk.Button(root, text="Display Difference", command=date_math).pack(pady=(10, 5))
 
-output_entry = Entry(root, width=15, justify="center")
+output_entry = Entry(root, width=15, justify="center", state="readonly")
 output_entry.pack()
 
 # Clear button for output field.
-ttk.Button(root, text="Clear Output",
-    command=lambda: output_entry.delete(0, "end")).pack(pady=(11, 0))
+ttk.Button(root, text="Clear Output", command=clear).pack(pady=(11, 0))
 
 # Checkbox to determine if date math should include end date in calculations.
 check_var = tk.IntVar()
 # Lambda function, called on checkbox status change, calls date_math() with updated logic.
 # Only calls date_math() on status change if there is a value in the output_entry field.
-check_end_date = tk.Checkbutton(root, text="Include End Date In Calculation", variable=check_var,
-    command=lambda: output_entry.get() and date_math())
+check_end_date = tk.Checkbutton(root, text="Include End Date in Calculation",
+    variable=check_var, command=lambda: output_entry.get() and date_math())
 check_end_date.pack(pady=(10, 0))
 
 # Call the main loop.
