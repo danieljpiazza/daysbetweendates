@@ -6,7 +6,7 @@ from tkcalendar import DateEntry
 root = tk.Tk()
 root.wm_title("Date Math")
 root.resizable(width=False, height=False)
-root.geometry("225x200+200+25")
+root.geometry("225x235+200+25")
 
 # Perform date math on user input and return the difference in days.
 def date_math():
@@ -18,13 +18,21 @@ def date_math():
     if difference.days < 0:
         difference *= -1
 
+    # Store read-only difference.days value in another variable.
+    final_difference = difference.days
+
+    # Add one day if the user checked "Include End Date In Calculation".
+    global check_var
+    if check_var.get() == 1:
+        final_difference += 1
+
     # Clear the output field and insert the difference in days.
-    # Check for difference.days == 1 for grammar purposes.
+    # Check for final_difference == 1 for grammar purposes.
     output_entry.delete(0, "end")
-    if difference.days == 1:
-        output_entry.insert(0, str(difference.days) + " Day")
+    if final_difference == 1:
+        output_entry.insert(0, str(final_difference) + " Day")
     else:
-        output_entry.insert(0, str(difference.days) + " Days")
+        output_entry.insert(0, str(final_difference) + " Days")
 
 # Calendar #1 GUI elements.
 ttk.Label(root, text="Choose Date #1").pack(pady=(10, 0))
@@ -47,6 +55,14 @@ output_entry.pack()
 # Clear button for output field.
 ttk.Button(root, text="Clear Output",
     command=lambda: output_entry.delete(0, "end")).pack(pady=(11, 0))
+
+# Checkbox to determine if date math should include end date in calculations.
+check_var = tk.IntVar()
+# Lambda function, called on checkbox status change, calls date_math() with updated logic.
+# Only calls date_math() on status change if there is a value in the output_entry field.
+check_end_date = tk.Checkbutton(root, text="Include End Date In Calculation", variable=check_var,
+    command=lambda: output_entry.get() and date_math())
+check_end_date.pack(pady=(10, 0))
 
 # Call the main loop.
 root.mainloop()
