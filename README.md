@@ -2,5 +2,6 @@
 Returns the number of days between two dates using Python, Tkinter, and tkcalendar.
 
 ### To Do
-- Style Tkinter layout.
-- Switch from Tkinter pack to grid layout.
+- General styling.
+- Add margin to outer border.
+- Add window title, window size permitting.
