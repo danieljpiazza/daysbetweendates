@@ -11,7 +11,7 @@ Returns the number of days between two dates using Python, Tkinter, and tkcalend
 Last tested with:<br>
 
 [Python](https://www.python.org/) (3.8.1)<br>
-[tkcalendar](https://pypi.org/project/tkcalendar/)
+[tkcalendar](https://pypi.org/project/tkcalendar/) (1.6.1)
 
 ### How to Run
 
